@@ -1,6 +1,6 @@
 # linuxcnc_remap_hotloading_plugin
 
-    在测试或写G代码M代码映射函数时,每次修改代码后，都得重新开启一次调试，确实是一个耗时的工作量，后来接触到python的imp库，然后实现了一下自己梦寐以求的热加载功能,确实好用，但发现linuxcnc的remap函数不能使用python的thread库，用上的话，remap文件里面的想多线程的地方不会如想象中那样不断执行，所以放弃了将此hotloading检测文件放到remap.py里面，转而想单独运行，不过如果单独运行的话，imp.reload(remap.py)时，remap.py的import emccanon是不行的，说没有此库，因为只用在G代码映射remap时才能用，所以只好不用imp.reload方法了，之前发现原来mdi是可以执行G代码的注释的，而Linuxcnc里面G代码注释又是能执行python语句的,之前也测试了手动reload的方法，你可以在mdi上如果如下语句
+在测试或写G代码M代码映射函数时,每次修改代码后，都得重新开启一次调试，确实是一个耗时的工作量，后来接触到python的imp库，然后实现了一下自己梦寐以求的热加载功能,确实好用，但发现linuxcnc的remap函数不能使用python的thread库，用上的话，remap文件里面的想多线程的地方不会如想象中那样不断执行，所以放弃了将此hotloading检测文件放到remap.py里面，转而想单独运行，不过如果单独运行的话，imp.reload(remap.py)时，remap.py的import emccanon是不行的，说没有此库，因为只用在G代码映射remap时才能用，所以只好不用imp.reload方法了，之前发现原来mdi是可以执行G代码的注释的，而Linuxcnc里面G代码注释又是能执行python语句的,之前也测试了手动reload的方法，你可以在mdi上如果如下语句
 
 ```
 ;py,import imp;imp.reload(remap)
